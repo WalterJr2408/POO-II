@@ -1,54 +1,71 @@
-import javax.swing.JOptionPane;
-// import java.util.Scanner;
+// import javax.swing.JOptionPane;
+import java.util.Scanner;
 public class ContactManager {
     public static void main(String[] args){
     // Módulo principal - Monta menu de opções
         ContactList Contacts = new ContactList();
-        int opt = 0;
         String nameAux, phoneNumberAux, eMailAux, nameOrPhoneAux;
-        while (opt != 5) {
-            opt = Integer.parseInt(JOptionPane.showInputDialog(
-                "Esolha a opção Desejada \n" + 
+        
+        try(Scanner input = new Scanner(System.in)){
+            int opt = 0;
+            while (opt != 5) {
+                System.out.println("Esolha a opção Desejada \n" + 
                 "1 - Adicionar Contato \n" +
                 "2 - Buscar Contato \n" +
                 "3 - Excluir Contato \n" +
                 "4 - Listar Contatos \n" +
-                "5 - Sair"
-            ));
-            switch (opt) {
-                case 1:
-                    nameAux = JOptionPane.showInputDialog("Informe o nome do contato: ");
-                    phoneNumberAux = JOptionPane.showInputDialog("Informe o telefone do contato: ");
-                    eMailAux = JOptionPane.showInputDialog("Informe o e-mail do contato: ");
-                    Contacts.addContact(new Contact(nameAux, phoneNumberAux, eMailAux));
-                    break;
-                
-                case 2:
-                    nameOrPhoneAux = JOptionPane.showInputDialog("Informe o nome ou telefone do contato para busca: ");
-                    int posAux = Contacts.searchContact(nameOrPhoneAux); 
-                    if ( posAux < 0) {
-                        JOptionPane.showMessageDialog
-                            (null, "Não encontrado!");
-                    }else{
-                        JOptionPane.showMessageDialog
-                            (null, "Posição: " + posAux);
+                "5 - Sair");
+
+                if (input.hasNextInt()) {
+                    opt = input.nextInt();
+                    switch (opt) {
+                        case 1:
+                            System.out.println("Informe o nome do contato: ");
+                            nameAux = input.next();
+                            System.out.println("Informe o telefone do contato: ");
+                            phoneNumberAux = input.next();
+                            System.out.println("Informe o e-mail do contato: ");
+                            eMailAux = input.next();                       
+                            Contacts.addContact(new Contact(nameAux, phoneNumberAux, eMailAux));
+                            break;
+                        
+                        case 2:
+                            System.out.println("Informe o nome ou telefone do contato para busca: ");
+                            nameOrPhoneAux = input.next();
+                            int posAux = Contacts.searchContact(nameOrPhoneAux); 
+                            if ( posAux < 0) {
+                                System.out.println("Não encontrado!");
+                            }else{
+                                System.out.println("Posição: " + posAux);
+                            }
+                            break;
+                        
+                        case 3:
+                            System.out.println("Informe o nome ou telefone do contato a excluir: ");
+                            nameOrPhoneAux = input.next();
+                            Contacts.removeContact(nameOrPhoneAux); 
+                            break;
+                        
+                        case 4:
+                            Contacts.listContacts();
+                            break;
+                        
+                        case 5:
+                            System.exit(0);
+                            break;
+
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+
                     }
-                break;
-                
-                case 3:
-                    nameOrPhoneAux = JOptionPane.showInputDialog("Informe o nome ou telefone do contato a excluir: ");
-                    Contacts.removeContact(nameOrPhoneAux); 
-                    break;
-                
-                case 4:
-                    Contacts.listContacts();
-                    break;
-                
-                case 5:
-                    System.exit(0);
-                    break;
+                    
+                }else{
+                    System.out.println("Entrada inválida. Digite um número válido.");
+                    input.next();
+                    opt = 0;
+                }
             }
-        }
-        
+            input.close();  
+        }       
     }
 }

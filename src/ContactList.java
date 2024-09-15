@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 public class ContactList {
     private Node first, last;
@@ -63,12 +63,13 @@ public class ContactList {
                     last = nodeTemp;
             if (first == nodeTemp.next)
                 first = nodeTemp.next.next;
-            msg = "Item " + nodeTemp.next.contact + " excluído.";
+            msg = nodeTemp.next.contact + " excluído!";
             nodeTemp.next =nodeTemp.next.next;
         }else{
             msg = "item não encontrado.";
         }
-        JOptionPane.showMessageDialog(null, msg);
+        //JOptionPane.showMessageDialog(null, msg);
+        System.out.println(msg);
     }
 
     public void listContacts(){
@@ -81,10 +82,12 @@ public class ContactList {
             i++;
         }
         if (i == 0) 
-                        JOptionPane.showMessageDialog
-                            (null, "Lista vazia");
-                    else
-                        JOptionPane.showMessageDialog(null, msg);
+            /*JOptionPane.showMessageDialog
+                (null, "Lista vazia");*/
+            System.out.println("Lista vazia!");
+        else
+            /*JOptionPane.showMessageDialog(null, msg);*/
+            System.out.println(msg);
     }
     
 }
