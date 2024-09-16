@@ -1,4 +1,3 @@
-// import javax.swing.JOptionPane;
 import java.util.Scanner;
 public class ContactManager {
     public static void main(String[] args){
